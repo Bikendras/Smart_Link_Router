@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand: #2d6a3e;
+  --brand-dark: #21452c;
+  --surface: #f6f7f5;
+  --ink: #1a1f1c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--ink);
+  background: var(--surface);
+  min-height: 100vh;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-brand-600 bg-white px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-brand-50 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-brand-800 transition hover:bg-brand-50;
+  }
+  .input {
+    @apply w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-200;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-gray-700;
+  }
+  .card {
+    @apply rounded-xl border border-gray-200/80 bg-white shadow-card;
+  }
+}
+
+/* Markdown content */
+.prose-blog h2 {
+  @apply mb-3 mt-8 font-display text-2xl font-semibold text-brand-900;
+}
+.prose-blog h3 {
+  @apply mb-2 mt-6 font-display text-xl font-semibold text-brand-800;
+}
+.prose-blog p {
+  @apply mb-4 leading-relaxed text-gray-700;
+}
+.prose-blog ul {
+  @apply mb-4 list-disc space-y-1 pl-6 text-gray-700;
+}
+.prose-blog ol {
+  @apply mb-4 list-decimal space-y-1 pl-6 text-gray-700;
+}
+.prose-blog a {
+  @apply text-brand-600 underline underline-offset-2;
+}
+.prose-blog code {
+  @apply rounded bg-brand-50 px-1.5 py-0.5 text-sm text-brand-800;
+}
+.prose-blog pre {
+  @apply mb-4 overflow-x-auto rounded-lg bg-brand-950 p-4 text-sm text-brand-50;
+}
+.prose-blog strong {
+  @apply font-semibold text-gray-900;
+}
