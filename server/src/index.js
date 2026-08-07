@@ -33,6 +33,20 @@ const redirectLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+app.get('/', (_req, res) => {
+  res.json({
+    ok: true,
+    service: 'smart-link-router',
+    health: '/health',
+    redirects: '/l/:alias',
+    api: {
+      auth: '/api/auth',
+      links: '/api/links',
+      posts: '/api/posts',
+    },
+  });
+});
+
 app.get('/health', (_req, res) => {
   res.json({ ok: true, service: 'smart-link-router' });
 });
