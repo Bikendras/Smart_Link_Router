@@ -17,14 +17,35 @@ const PORT = process.env.PORT || 5000;
 app.set('trust proxy', 1);
 
 app.use(helmet({ contentSecurityPolicy: false }));
+const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:3000')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin(origin, callback) {
+      // Allow non-browser / same-origin tools (no Origin header)
+      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+        return callback(null, true);
+      }
+      return callback(null, false);
+    },
     credentials: true,
   })
 );
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('dev'));
+
+/** Ensure MongoDB is connected (needed on Vercel cold starts). */
+app.use(async (_req, _res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 const redirectLimiter = rateLimit({
   windowMs: 60 * 1000,
@@ -61,6 +82,12 @@ app.use((_req, res) => {
   res.status(404).json({ success: false, message: 'Not found' });
 });
 
+app.use((err, _req, res, _next) => {
+  console.error(err);
+  res.status(500).json({ success: false, message: err.message || 'Server error' });
+});
+
+/** Local / traditional host: listen on a port. Vercel uses the exported app. */
 async function start() {
   try {
     await connectDB();
@@ -74,4 +101,8 @@ async function start() {
   }
 }
 
-start();
+if (require.main === module) {
+  start();
+}
+
+module.exports = app;

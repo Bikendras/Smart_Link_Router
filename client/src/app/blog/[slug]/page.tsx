@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 import BlogMarkdown from '@/components/BlogMarkdown';
 import { fetchPostBySlug } from '@/lib/blogServer';
 
+/** Always fetch at request time — avoids Vercel build needing a live API. */
+export const dynamic = 'force-dynamic';
+
 type Props = { params: { slug: string } };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

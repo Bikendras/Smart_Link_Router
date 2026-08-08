@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { fetchPublishedPosts } from '@/lib/blogServer';
 
+/** Always fetch at request time — avoids Vercel build needing a live API. */
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Blog | SKINAA Link',
   description: 'Guides on smart links, device redirects, and click analytics.',
