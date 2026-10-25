@@ -52,6 +52,8 @@ ADMIN_SECRET=admin123
 JWT_SECRET=change-me-to-a-long-random-string
 CLIENT_URL=http://localhost:3000
 NODE_ENV=development
+N8N_WEBHOOK_URL=https://your-n8n-host/webhook/skinaa-chat
+N8N_CHAT_SECRET=change-me-chat-secret
 ```
 
 | Key | Purpose |
@@ -61,6 +63,8 @@ NODE_ENV=development
 | `ADMIN_SECRET` | Admin secret login (local testing) |
 | `JWT_SECRET` | Signs auth tokens |
 | `CLIENT_URL` | Frontend origin (CORS) |
+| `N8N_WEBHOOK_URL` | n8n Webhook URL for chatbot questions |
+| `N8N_CHAT_SECRET` | Shared secret (`x-chat-secret`) for n8n ↔ backend |
 
 ### `client/.env.local`
 

@@ -53,6 +53,26 @@ export type AuthUser = {
   role?: 'user' | 'admin';
 };
 
+export type ChatMessageType = 'QUESTION' | 'AI_ANSWER';
+
+export type ChatHistoryItem = {
+  id: string;
+  sessionId: string;
+  content: string;
+  type: ChatMessageType;
+  createdAt: string;
+};
+
+export type ChatSessionStatus = {
+  sessionId: string;
+  status: 'pending' | 'done' | 'error';
+  question: string;
+  answer: string | null;
+  errorMessage?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 type AuthResponse = {
   success: boolean;
   token: string;
@@ -206,6 +226,29 @@ export const api = {
   deletePost(id: string) {
     return request<{ success: boolean }>(`/api/posts/${id}`, {
       method: 'DELETE',
+      auth: true,
+    });
+  },
+
+  sendChatMessage(message: string, auth = false) {
+    return request<{
+      success: boolean;
+      data: { sessionId: string; status: string; stored: boolean };
+    }>('/api/chat/send', {
+      method: 'POST',
+      auth,
+      body: JSON.stringify({ message }),
+    });
+  },
+
+  getChatSession(sessionId: string) {
+    return request<{ success: boolean; data: ChatSessionStatus }>(
+      `/api/chat/session/${encodeURIComponent(sessionId)}`
+    );
+  },
+
+  getChatHistory() {
+    return request<{ success: boolean; data: ChatHistoryItem[] }>('/api/chat/history', {
       auth: true,
     });
   },

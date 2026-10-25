@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { DM_Sans, Outfit } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ChatbotWidget from '@/components/ChatbotWidget';
 import './globals.css';
 
 const dmSans = DM_Sans({
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <div className="flex-1">{children}</div>
           <Footer />
+          <ChatbotWidget />
         </div>
       </body>
     </html>

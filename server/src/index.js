@@ -9,6 +9,7 @@ const connectDB = require('./config/db');
 const authRouter = require('./routes/auth');
 const linksRouter = require('./routes/links');
 const postsRouter = require('./routes/posts');
+const chatRouter = require('./routes/chat');
 const { redirectByAlias } = require('./controllers/linkController');
 
 const app = express();
@@ -64,6 +65,7 @@ app.get('/', (_req, res) => {
       auth: '/api/auth',
       links: '/api/links',
       posts: '/api/posts',
+      chat: '/api/chat',
     },
   });
 });
@@ -75,6 +77,7 @@ app.get('/health', (_req, res) => {
 app.use('/api/auth', authRouter);
 app.use('/api/links', linksRouter);
 app.use('/api/posts', postsRouter);
+app.use('/api/chat', chatRouter);
 
 app.get('/l/:alias', redirectLimiter, redirectByAlias);
 
