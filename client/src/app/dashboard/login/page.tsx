@@ -39,6 +39,7 @@ export default function AdminLoginPage() {
     }
   }
 
+  
   return (
     <AuthLayout>
       <form onSubmit={onSubmit} className="rounded-xl bg-white p-6 shadow-soft sm:p-8">

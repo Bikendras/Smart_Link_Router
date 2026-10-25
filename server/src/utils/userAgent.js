@@ -5,7 +5,7 @@ function detectOS(userAgent = '') {
   if (
     /iphone|ipad|ipod/.test(ua) ||
     (ua.includes('macintosh') && ua.includes('mobile'))
-  ) {
+  ) { 
     return 'ios';
   }
 
